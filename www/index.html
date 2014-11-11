@@ -1,46 +1,362 @@
 <!DOCTYPE html>
-<!--
-    Copyright (c) 2012-2014 Adobe Systems Incorporated. All rights reserved.
+<script>
+	//THIS IS TO DETECT IOS8 STATUS_BAR ISSUE (only occurs if application started in landscape)
+	window.initial_orientation = window.orientation;
+</script>
+<script src="fixes.js?version=${jenkins.bld.num}""></script>
+<html style="height:100%;width:100%;overflow:hidden" >
+<head>
+	<meta name="viewport" content="width=device-width,  target-densityDpi=device-dpi, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="apple-touch-fullscreen" content="yes">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+<title>CrowdTv - Presentation</title>
+    <meta name="apple-mobile-web-app-title" content="CrowdTV">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon" href="iphone/apple-touch-icon.png" />
+  <link rel="apple-touch-icon" sizes="57x57" href="iphone/apple-touch-icon-57x57.png" />
+  <link rel="apple-touch-icon" sizes="72x72" href="iphone/apple-touch-icon-72x72.png" />
+  <link rel="apple-touch-icon" sizes="76x76" href="iphone/apple-touch-icon-76x76.png" />
+  <link rel="apple-touch-icon" sizes="114x114" href="iphone/apple-touch-icon-114x114.png" />
+  <link rel="apple-touch-icon" sizes="120x120" href="iphone/apple-touch-icon-120x120.png" />
+  <link rel="apple-touch-icon" sizes="144x144" href="iphone/apple-touch-icon-144x144.png" />
+  <link rel="apple-touch-icon" sizes="152x152" href="iphone/apple-touch-icon-152x152.png" />
+  <link rel="icon" sizes="192x192" href="iphone/icon.png">
 
-    Licensed to the Apache Software Foundation (ASF) under one
-    or more contributor license agreements.  See the NOTICE file
-    distributed with this work for additional information
-    regarding copyright ownership.  The ASF licenses this file
-    to you under the Apache License, Version 2.0 (the
-    "License"); you may not use this file except in compliance
-    with the License.  You may obtain a copy of the License at
+<!-- iPhone 3 and 4 Non-Retina -->
+<link rel='apple-touch-startup-image' media='(device-width: 320px)' href='iphone/Default_320x460.png'>
 
-    http://www.apache.org/licenses/LICENSE-2.0
+<!-- iPhone 4 Retina -->
+<link rel='apple-touch-startup-image' media='(max-device-width: 480px) and (-webkit-min-device-pixel-ratio : 2)' href='iphone/Default_640x920.png'>
 
-    Unless required by applicable law or agreed to in writing,
-    software distributed under the License is distributed on an
-    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-     KIND, either express or implied.  See the License for the
-    specific language governing permissions and limitations
-    under the License.
--->
-<html>
-    <head>
-        <meta charset="utf-8" />
-        <meta name="format-detection" content="telephone=no" />
-        <meta name="msapplication-tap-highlight" content="no" />
-        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
-        <link rel="stylesheet" type="text/css" href="css/index.css" />
-        <title>Hello World</title>
-    </head>
-    <body>
-        <div class="app">
-            <h1>PhoneGap</h1>
-            <div id="deviceready" class="blink">
-                <p class="event listening">Connecting to Device</p>
-                <p class="event received">Device is Ready</p>
-            </div>
-        </div>
-        <script type="text/javascript" src="cordova.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>
-        <script type="text/javascript">
-            app.initialize();
-        </script>
-    </body>
-</html>
+<!-- iPhone 5 Retina -->
+<link rel='apple-touch-startup-image' media='(max-device-width : 548px) and (-webkit-min-device-pixel-ratio : 2)' href='iphone/Default_640x1096.png'>
+ <link rel="manifest" href="manifest.json">
+
+	<link rel="stylesheet" type="text/css" href="addtohomescreen.css">
+<script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+	<script src="js/addtohomescreen.js"></script>
+<script src="js/screenfull.js"></script>
+	<style>
+		body {
+			text-align:center;
+			font-family:Arial;
+			font-size:12px;
+			line-height: 90%;
+			margin:0;
+			padding:0;
+			width:100%;
+		}
+		input {
+			vertical-align:middle;
+			height:50px;
+		}
+		.box-wrapper {
+			display:inline-block;
+			width:450px;
+			position:relative;
+			margin-top:150px;
+			vertical-align:middle;
+			height:400px
+		}
+		.box {
+			display:inline-block;
+			vertical-align:middle;
+			position:relative;
+			height:140px;
+			width:200px;
+			border:solid 1px steelblue;
+		}
+		.description {
+			height:30px;
+			padding-top:0.5em;
+			background-color:steelblue;
+			color:white;
+			text-shadow:0px -1px black;
+			text-align:center;
+		}
+		.value {
+			height:70px;
+			background-color:white;
+			color:steelblue;
+			padding-top:1.0em;
+			text-align:center;
+		}
+		h1{ font-size:1.2em;color:darkblue}
+		h2{ font-size:1.1em;color:#000;line-height: 110%;}
+
+input{width:100%}
+	</style>
+	<script>
+
+document.addEventListener("deviceready", function(){
+alert('deviceready');
+window.brightness = cordova.require("cordova.plugin.Brightness.Brightness");
+setBrightness(1);
+},true);
+function setBrightness(value) {
+alert('bright');
+brightness.setBrightness(value, win, fail);
+}
+function getBrightness() {
+brightness.getBrightness( win, fail);
+}
+function win(status) {
+alert('Message: ' + status);
+}
+function fail(status) {
+alert('Error: ' + status);
+}
+
+var fps = 30;
+var firstrun = 1;
+var lastframe = 0;
+var go = 0;
+var i = 0;
+var count = 0;
+var timeInMs = 0;
+var otimeInMs = 0;
+var dif;
+var presentation;
+var startt;
+
+if (!Date.now) {
+  Date.now = function now() {
+    return new Date().getTime();
+  };
+}
+
+		document.addEventListener('DOMContentLoaded',setupDoc);
+		function setupDoc () {
+			document.body.innerHTML = '<input style="display:block;height:70px;" type="button" value="WE REQUEST YOU GO FULL SCREEN CLICK HERE" id="requesttop" class="request"/><img style="margin-left:auto;margin-right:auto;width:300px" src="united.png"/><h2>Please turn phone HORIZONTALLY</h2><img style="margin-left:auto;margin-right:auto;width:100px;height:auto;" src="landscape.jpg"/><h1>WELCOME TO THE UNITED CENTER</h1><h2>The Presentation is starting GET READY TO HOLD UP YOUR PHONE IN</h2> <h3 style="margin-top:20px;font-size:3em;line-height: 110%;" id="countdown">Please Wait Calculating</h2><input style="height:70px;" type="button" value="WE REQUEST YOU GO FULL SCREEN CLICK HERE" class="request" id="requestbottom"/>';
+
+
+var ath = addToHomescreen({
+ //   debug: 'ios',           // activate debug mode in ios emulation
+    skipFirstVisit: false,	// show at first access
+    startDelay: 0,          // display the message right away
+    lifespan: 0,            // do not automatically kill the call out
+    displayPace: 0,         // do not obey the display pace
+    maxDisplayCount: 0,     // do not obey the max display count
+    manditory: true
+});
+
+	var requesttop = document.getElementById('requesttop');
+	var requestbottom = document.getElementById('requestbottom');
+	var countdown = document.getElementById('countdown');
+
+	requesttop.onclick=function(){gofull();};
+	requestbottom.onclick=function(){gofull();};
+
+
+function gofull()
+{
+	screenfull.request(document.getElementById('theBody'));
+}
+
+
+
+
+if(!screenfull.enabled)
+{
+var myClasses = document.querySelectorAll('.request'),
+    i = 0,
+    l = myClasses.length;
+
+for (i; i < l; i++) {
+    myClasses[i].style.display = 'none';
+}
+}
+
+
+
+if(timeInMs > 0)
+{
+var stopped = Date.now() -timeInMs;
+
+	if(stopped > 1000)
+	{
+
+alert("Due to an Apple issue, this app must be closed and re-opened.  Apple is working on correcting");
+
+}
+
+}
+
+
+
+
+
+function gettime()
+{
+	count = count + 1;
+
+
+					xhr = new XMLHttpRequest();
+					xhr.open('get','http://s2.npwu.com/tv/testt.php',true);
+					xhr.onreadystatechange = function (data) {
+
+					 if(xhr.readyState == 4){
+						//alert(xhr.responseText);
+						var strData;
+
+						strData = JSON.parse(xhr.responseText);
+
+						otimeInMs = Date.now();
+						dif =  parseInt((strData.time - otimeInMs));
+						if(firstrun < 6)
+						{
+						firstrun = firstrun + 1;
+						gettime();
+							
+						}
+						else
+						{
+						getcolor();
+						}
+						}
+					
+					}
+					xhr.send();
+
+
+}
+
+gettime();
+
+
+
+
+function getcolor()
+{
+
+xhr = new XMLHttpRequest();
+					xhr.open('get','http://s2.npwu.com/tv/test.php?seat=1',true);
+					xhr.onreadystatechange = function () {
+					 if(xhr.readyState == 4){
+						var strData;
+						strData = JSON.parse(xhr.responseText);
+						presentation = strData;	
+						start = presentation.time;
+						lastframe =  presentation.count;
+						startpresentation();
+
+
+					}
+					
+					}
+					xhr.send();
+
+
+
+}
+
+
+
+
+
+
+
+
+function startpresentation()
+{
+
+	i = Math.round((presentation.times - (timeInMs  + dif)) / 1000)
+
+	if(i > 0)
+	{
+
+	setTimeout(function() {
+			
+				timeInMs = Date.now();
+				i = Math.round((presentation.times - (timeInMs  + dif)) / 1000)
+
+				countdown.innerText = i;
+	
+				startpresentation();
+	
+
+		},100);
+	}
+	else
+	{
+
+	var highestTimeoutId = setTimeout(";");
+		for (var i = 0 ; i <= highestTimeoutId ; i++) {
+			    clearTimeout(i); 
+		}
+	setTimeout(function() {livepresentation();},1000);
+	}
+
+}
+
+
+
+
+function livepresentation()
+{
+
+			document.body.innerHTML = '';
+	if(go == 0)
+	{
+	setTimeout(function() {
+		count = count + 1;
+		timeInMs = Date.now();
+
+
+		i = timeInMs - presentation.times  + dif
+
+		i = (i / 1000) * fps;
+		i = Math.round(i)
+
+
+		if(i >= lastframe)
+		{
+		ended();
+		return;
+		}
+  		document.body.style.backgroundColor = '#'+ presentation.data[i - 1].c;
+		livepresentation();
+		}, 0);
+	}
+}
+
+function ended()
+{
+	alert('Thank You');
+	var ok = 0;
+	var result = '';
+	var framerate =  ((count/lastframe * 100) - 100);
+	if (count/lastframe >= 1)
+	{
+	result = ' which exceeds minimum speed for every frame displayed at ' +fps + 'fps';
+	}
+	else
+	{
+	result = ' which does not make the minimum speed for every frame displayed at ' +fps + 'fps';
+	}
+		alert(count + ' frames at ' + fps + ' Frames Per Second out of ' + lastframe + ' frames.  That is ' + framerate.toFixed(2) + '% ' +  result);
+
+	location.reload();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+			Array.prototype.forEach.call(document.querySelectorAll('input'),function (input) {
+				input.willPauseWorkers();
+			});
+		}
+
+	</script>
+</head>
+<body class="splash" style="height:100%;overflow:hidden;" id="theBody">
+</body>
